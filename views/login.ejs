@@ -10,22 +10,16 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="my-5">
-                            <!-- <form id="contactForm" action="/post/store" method="POST" > -->
-                            <form id="contactForm" action="/post/store" method="POST" enctype="multipart/form-data">
+                            <form id="loginForm" action="/auth/user" method="POST">
                                 <div class="form-floating">
-                                    <input class="form-control" id="blogTitle" name="title" type="text" placeholder="Enter your name..." />
-                                    <label for="blogTitle">Blog Title</label>
+                                    <input class="form-control" id="username_login" name="username" type="text" placeholder="Enter username" />
+                                    <label for="username_login">Username</label>
                                 </div>
                                 <div class="form-floating">
-                                    <textarea class="form-control" id="blogBody" name="body" placeholder="Enter the blog body" style="height: 12rem" ></textarea>
-                                    <label for="blogBody">Blog Body</label>
+                                    <input class="form-control" id="password_login" name="password" type="password" placeholder="Enter password" />
+                                    <label for="password_login">Password</label>
                                 </div>
-                                <br /><div class="mb-3">
-                                </div class="mb-3">
-                                    <label for="blogImage" class="form-label">Blog Image</label>
-                                    <input class="form-control" type="file" id="blogImage" name="blogImage">
-                                </div>
-                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Create Post</button>
+                                <button class="mt-4 btn btn-primary text-uppercase" id="submitButton_login" type="submit">Login</button>
                             </form>
                         </div>
                     </div>

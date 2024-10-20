@@ -1,11 +1,18 @@
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 module.exports = async (req, res) => {
-    // console.log(req.body);
-    const newUser = await User.create({
-        name: req.body.username,
-        password: req.body.password
+
+    bcrypt.hash(req.body.password, 10, (error,hash)=>{
+
+        if(error) console.log(error);
+
+        User.create({
+            name: req.body.username,
+            password: hash
+        });
+
     });
-    console.log(newUser);
+
     res.redirect('/');
 }
