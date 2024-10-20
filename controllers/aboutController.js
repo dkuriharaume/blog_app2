@@ -3,6 +3,7 @@ module.exports = (req, res)=>{
         title: 'About',
         pageHeaderH1: 'About Me',
         pageHeaderSub: 'This is what I do.',
-        bgImage: 'about-bg.jpg'
+        bgImage: 'about-bg.jpg',
+        user: req.session.user
     });
 };

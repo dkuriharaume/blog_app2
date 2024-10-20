@@ -3,6 +3,7 @@ module.exports = (req, res) => {
         title: 'Create New Post',
         pageHeaderH1: 'Create New Post',
         pageHeaderSub: 'Fill in the form',
-        bgImage: 'contact-bg.jpg'
+        bgImage: 'contact-bg.jpg',
+        user: req.session.user
     });
 };

@@ -2,12 +2,18 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
+const session = require('express-session');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 // app.use(express.json()); 
 app.use(fileUpload());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
 
 // const path = require('path');
 

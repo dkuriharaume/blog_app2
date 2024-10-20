@@ -13,6 +13,7 @@ module.exports = async (req, res)=>{
         pageHeaderH1: blogpost.title,
         body: blogpost.body,
         postPage: true,
-        bgImage: imagePath
+        bgImage: imagePath,
+        user: req.session.user
     });
 };
