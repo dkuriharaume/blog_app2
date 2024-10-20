@@ -17,6 +17,8 @@ const contactController = require('./controllers/contactController');
 const postController = require('./controllers/postController');
 const createPostController = require('./controllers/createPostController');
 const newPostController = require('./controllers/newPostController');
+const newUserController = require('./controllers/newUserController');
+const createUserController = require('./controllers/createUserController');
 
 // console.log(app.locals);
 
@@ -29,6 +31,7 @@ app.get('/about', aboutController);
 app.get('/contact', contactController);
 app.get('/post', homeController);
 app.get('/post/new', newPostController);
+app.get('/user/new', newUserController);
 
 main().catch(e =>{
     console.log(e);
@@ -41,6 +44,7 @@ async function main(){
     app.get('/', homeController);
     app.post('/post/store', createPostController);
     app.get('/post/:id', postController);
+    app.post('/user/store', createUserController);
 
 
     // console.log('started');
