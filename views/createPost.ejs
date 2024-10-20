@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layouts/head') %>
+    <body>
+        <%- include('layouts/navbar') %>
+        <%- include('layouts/pageHeader') %>
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="my-5">
+                            <!-- <form id="contactForm" action="/post/store" method="POST" > -->
+                            <form id="contactForm" action="/post/store" method="POST" enctype="multipart/form-data">
+                                <div class="form-floating">
+                                    <input class="form-control" id="blogTitle" name="title" type="text" placeholder="Enter your name..." />
+                                    <label for="blogTitle">Blog Title</label>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="blogBody" name="body" placeholder="Enter the blog body" style="height: 12rem" ></textarea>
+                                    <label for="blogBody">Blog Body</label>
+                                </div>
+                                <br /><div class="mb-3">
+                                </div class="mb-3">
+                                    <label for="blogImage" class="form-label">Blog Image</label>
+                                    <input class="form-control" type="file" id="blogImage" name="blogImage">
+                                </div>
+                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Create Post</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('layouts/footer') %>
+        <%- include('layouts/scripts') %>
+    </body>
+</html>
