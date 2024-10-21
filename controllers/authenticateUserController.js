@@ -15,25 +15,7 @@ module.exports = async (req, res) =>{
             const user = users[i];
             const matched = await bcrypt.compare(req.body.password, user.password);
             if(matched){
-                // console.log('password is correct!');
-                // console.log(`${user._id}`);
-                // try {
-                //     await req.session.regenerate();
-                //     req.session.user = user;
-                //     console.log(req.session);
 
-                //     try {
-                //         await req.session.save();
-                //         return res.redirect('/');
-                //     }
-                //     catch(e){
-                //         console.log(e);
-                //     }
-
-                // }
-                // catch(error) {
-                //     console.log(error);
-                // }
                 req.session.regenerate((error)=>{
                     if(error) return next(error);
                     req.session.user = user;
@@ -42,6 +24,7 @@ module.exports = async (req, res) =>{
 
                     req.session.save((error)=>{
                         if(error) return next(error);
+                        req.flash('info', `Logged in as "${user.name}" !`)
                         res.redirect('/');
 
                     });

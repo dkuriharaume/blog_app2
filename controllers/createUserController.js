@@ -14,5 +14,6 @@ module.exports = async (req, res) => {
 
     });
 
+    req.flash('info',`New user "${req.body.username}" is created!`);
     res.redirect('/');
 }

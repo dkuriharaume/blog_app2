@@ -6,12 +6,18 @@ const fs = require('fs');
 webp.grant_permission();
 
 module.exports = async (req, res) => {
-    // console.log(req.body);
-    // console.log(req.body.blogImage);
-    // console.log(req.files);
-    // req.files.blogImage.mv()
-    // console.log(path.resolve(__dirname,'../public/assets/img', req.files.blogImage.name));
 
+    if(!req.body.title) req.flash('warning', 'Title is required.');
+    if(!req.body.body) req.flash('warning', 'Body is required.');
+    if(!req.files || req.files.length < 1) req.flash('warning', 'Image is required');
+    if(!req.body.title || !req.body.body || !req.files || req.files.length < 1){
+
+        req.flash('data', {
+            title: req.body.title,
+            body: req.body.body
+        });
+        return res.redirect('/post/new');
+    } 
 
     const reExtension = /\.[^/.]+$/;
     const origExtention = req.files.blogImage.name.match(reExtension);
@@ -24,14 +30,12 @@ module.exports = async (req, res) => {
 
     fs.unlink(origPath, error=>{console.log(error)});
 
-
-    // console.log(`imageId: ${imageId}`);
-
     const newPost = await BlogPost.create({
         title: req.body.title,
         body: req.body.body,
         imagePath: imageId + '.webp'
     });
     console.log(newPost);
+    req.flash('info', `New Post ${req.body.title} is created.`);
     res.redirect('/');
 };

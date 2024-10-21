@@ -4,7 +4,7 @@ module.exports = async (req, res) =>{
 
     //don't forget to populate with userId
     const blogposts = await BlogPost.find({});
-    console.log(`${blogposts.length} documents are found`);
+    // console.log(`${blogposts.length} documents are found`);
     // let user;
     // if(req.session.user) user = req.session.user;
     const user = req.session.user;
@@ -14,6 +14,7 @@ module.exports = async (req, res) =>{
         pageHeaderSub: 'Relearning until I\'m good',
         bgImage: 'home-bg.jpg',
         blogposts: blogposts,
-        user: user
+        user: user,
+        info: req.flash('info')
     });
 };

@@ -10,14 +10,21 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="my-5">
+                            <% if(locals.warning) { %>
+                                <ul class="list-group">
+                                    <% for(var i = 0; i < warning.length; i ++){ %>
+                                        <li class="list-group-item list-group-item-warning mb-1"><%= warning[i] %></li>
+                                    <% } %>
+                                </ul>
+                            <% } %>
                             <!-- <form id="contactForm" action="/post/store" method="POST" > -->
                             <form id="contactForm" action="/post/store" method="POST" enctype="multipart/form-data">
                                 <div class="form-floating">
-                                    <input class="form-control" id="blogTitle" name="title" type="text" placeholder="Enter your name..." />
+                                    <input class="form-control" id="blogTitle" name="title" type="text" placeholder="Enter your name..." value="<% if(locals.data){ %><%= data.title %><% } %>"/>
                                     <label for="blogTitle">Blog Title</label>
                                 </div>
                                 <div class="form-floating">
-                                    <textarea class="form-control" id="blogBody" name="body" placeholder="Enter the blog body" style="height: 12rem" ></textarea>
+                                    <textarea class="form-control" id="blogBody" name="body" placeholder="Enter the blog body" style="height: 12rem" ><% if(locals.data) { %><%= data.body %><% } %></textarea>
                                     <label for="blogBody">Blog Body</label>
                                 </div>
                                 <br /><div class="mb-3">

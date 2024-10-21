@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -14,6 +15,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(flash());
 
 // const path = require('path');
 
@@ -27,6 +29,8 @@ const newUserController = require('./controllers/newUserController');
 const createUserController = require('./controllers/createUserController');
 const loginController = require('./controllers/loginController');
 const authenticateUserController = require('./controllers/authenticateUserController');
+const isAuthenticatedMW = require('./middlewares/isAuthenticatedMW');
+const logoutController = require('./controllers/logoutController');
 
 // console.log(app.locals);
 
@@ -38,9 +42,10 @@ app.listen(port);
 app.get('/about', aboutController);
 app.get('/contact', contactController);
 app.get('/post', homeController);
-app.get('/post/new', newPostController);
+app.get('/post/new', isAuthenticatedMW ,newPostController);
 app.get('/user/new', newUserController);
 app.get('/user/login', loginController);
+app.get('/user/logout', isAuthenticatedMW, logoutController);
 
 main().catch(e =>{
     console.log(e);
@@ -51,7 +56,7 @@ async function main(){
     await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
 
     app.get('/', homeController);
-    app.post('/post/store', createPostController);
+    app.post('/post/store',isAuthenticatedMW, createPostController);
     app.get('/post/:id', postController);
     app.post('/user/store', createUserController);
     app.post('/auth/user', authenticateUserController);
