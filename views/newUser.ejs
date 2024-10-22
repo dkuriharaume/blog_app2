@@ -10,14 +10,22 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="my-5">
+                            <% if(locals.error) { %>
+                                <ul class="list-group">
+                                    <% for (var i = 0; i < error.length; i ++){ %>
+                                        <li class="list-group-item list-group-item-warning mb-1"><%= error[i] %></li>
+
+                                    <% } %>
+                                </ul>
+                            <% } %>
                             <!-- <form id="contactForm" action="/post/store" method="POST" > -->
                             <form id="newUserForm" action="/user/store" method="POST">
                                 <div class="form-floating">
-                                    <input class="form-control" id="username" name="username" type="text" placeholder="Enter new username" />
+                                    <input class="form-control" id="username" name="username" type="text" placeholder="Enter new username" value="<% if(locals.data) { %><%= data.username %><% } %>"/>
                                     <label for="username">Username</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" id="password" name="password" type="password" placeholder="Enter new password" />
+                                    <input class="form-control" id="password" name="password" type="password" placeholder="Enter new password" value="<% if(locals.data){ %><%= data.password %><% } %>"/>
                                     <label for="password">Password</label>
                                 </div>
                                 <button class="mt-4 btn btn-primary text-uppercase" id="submitButton-newUser" type="submit">Create new user</button>

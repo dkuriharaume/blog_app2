@@ -6,6 +6,9 @@ module.exports = (req, res) =>{
         pageHeaderSub: 'Fill in the form and submit',
         postPage: false,
         bgImage: 'home-bg.jpg',
-        user: req.session.user
+        user: req.session.user,
+        error: req.flash('error'),
+        data: req.flash('data')[0]
+
     });
 }
