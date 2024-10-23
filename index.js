@@ -26,14 +26,15 @@ const postController = require('./controllers/postController');
 const createPostController = require('./controllers/createPostController');
 const newPostController = require('./controllers/newPostController');
 const newUserController = require('./controllers/newUserController');
-const createUserController = require('./controllers/createUserController');
+// const createUserController = require('./controllers/createUserController');
 const loginController = require('./controllers/loginController');
 const authenticateUserController = require('./controllers/authenticateUserController');
 const logoutController = require('./controllers/logoutController');
-const createUserMW = require('./middlewares/createUserMW');
+const notfoundController = require('./controllers/pageNotFoundController');
 
 const isAuthenticatedMW = require('./middlewares/isAuthenticatedMW');
 const isNotAuthMW = require('./middlewares/isNotAuthMW');
+const createUserMW = require('./middlewares/createUserMW');
 // console.log(app.locals);
 
 let port = process.env.PORT;
@@ -63,7 +64,6 @@ async function main(){
     // app.post('/user/store', createUserController);
     app.post('/user/store', createUserMW, authenticateUserController);
     app.post('/auth/user', isNotAuthMW, authenticateUserController);
-
     // console.log('started');
-
+    app.get('/*', notfoundController);
 };
