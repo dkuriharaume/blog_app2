@@ -29,10 +29,11 @@ const newUserController = require('./controllers/newUserController');
 const createUserController = require('./controllers/createUserController');
 const loginController = require('./controllers/loginController');
 const authenticateUserController = require('./controllers/authenticateUserController');
-const isAuthenticatedMW = require('./middlewares/isAuthenticatedMW');
 const logoutController = require('./controllers/logoutController');
 const createUserMW = require('./middlewares/createUserMW');
 
+const isAuthenticatedMW = require('./middlewares/isAuthenticatedMW');
+const isNotAuthMW = require('./middlewares/isNotAuthMW');
 // console.log(app.locals);
 
 let port = process.env.PORT;
@@ -45,7 +46,7 @@ app.get('/contact', contactController);
 app.get('/post', homeController);
 app.get('/post/new', isAuthenticatedMW ,newPostController);
 app.get('/user/new', newUserController);
-app.get('/user/login', loginController);
+app.get('/user/login', isNotAuthMW, loginController);
 app.get('/user/logout', isAuthenticatedMW, logoutController);
 
 main().catch(e =>{
@@ -61,9 +62,7 @@ async function main(){
     app.get('/post/:id', postController);
     // app.post('/user/store', createUserController);
     app.post('/user/store', createUserMW, authenticateUserController);
-    app.post('/auth/user', authenticateUserController);
-    
-
+    app.post('/auth/user', isNotAuthMW, authenticateUserController);
 
     // console.log('started');
 

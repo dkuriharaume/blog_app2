@@ -8,13 +8,14 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/post/new">Create Post</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/user/login">Login</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/user/new">Create User</a></li>
                 <% if(locals.user) { %>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/post/new">Create Post</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#"><%= user.name %></a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/user/logout">Logout</a></li>
+                <% } else { %>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/user/login">Login</a></li>
                 <% } %>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/user/new">Create User</a></li>
             </ul>
         </div>
     </div>
