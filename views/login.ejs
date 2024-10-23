@@ -9,14 +9,23 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
+                        <% if (locals.error) { %> 
+                            <ul class="list-group">
+                                <% for(var i = 0; i < error.length; i ++) { %>
+                                    <li class="list-group-item list-group-item-warning mb-2">
+                                        <%= error[i] %>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        <% } %>
                         <div class="my-5">
                             <form id="loginForm" action="/auth/user" method="POST">
                                 <div class="form-floating">
-                                    <input class="form-control" id="username_login" name="username" type="text" placeholder="Enter username" />
+                                    <input class="form-control" id="username_login" name="username" type="text" placeholder="Enter username" value="<% if(locals.data) { %><%= data.username%><% } %>"/>
                                     <label for="username_login">Username</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" id="password_login" name="password" type="password" placeholder="Enter password" />
+                                    <input class="form-control" id="password_login" name="password" type="password" placeholder="Enter password" value="<% if(locals.data){%><%= data.password %><%}%>"/>
                                     <label for="password_login">Password</label>
                                 </div>
                                 <button class="mt-4 btn btn-primary text-uppercase" id="submitButton_login" type="submit">Login</button>
