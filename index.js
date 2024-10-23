@@ -31,6 +31,7 @@ const loginController = require('./controllers/loginController');
 const authenticateUserController = require('./controllers/authenticateUserController');
 const isAuthenticatedMW = require('./middlewares/isAuthenticatedMW');
 const logoutController = require('./controllers/logoutController');
+const createUserMW = require('./middlewares/createUserMW');
 
 // console.log(app.locals);
 
@@ -58,8 +59,10 @@ async function main(){
     app.get('/', homeController);
     app.post('/post/store',isAuthenticatedMW, createPostController);
     app.get('/post/:id', postController);
-    app.post('/user/store', createUserController);
+    // app.post('/user/store', createUserController);
+    app.post('/user/store', createUserMW, authenticateUserController);
     app.post('/auth/user', authenticateUserController);
+    
 
 
     // console.log('started');
