@@ -25,8 +25,13 @@
                                 </a>
                                 <p class="post-meta">
                                     Posted by
+                                    <% if(locals.authorNames) { %>
+                                        <a href="#!"><%= authorNames[i] %></a>
+                                    <% } else { %>
                                     <a href="#!">Start Bootstrap</a>
-                                    on September 24, 2023
+                                    <% } %>
+                                    <!-- on September 24, 2023 -->
+                                    on <%= blogposts[i].postDate.toDateString() %>
                                 </p>
                             </div>
                             <!-- Divider-->

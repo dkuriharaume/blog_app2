@@ -11,6 +11,14 @@ const blogPostSchema = mongoose.Schema({
     imagePath: {
         type: String,
         require: true
+    },
+    userId : {
+        type: mongoose.ObjectId,
+
+    },
+    postDate: {
+        type: Date,
+        default: new Date()
     }
 });
 

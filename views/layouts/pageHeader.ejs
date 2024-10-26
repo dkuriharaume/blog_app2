@@ -8,8 +8,18 @@
                         <span class="meta">
                             Posted by
                             <!-- <a href="#!">Start Bootstrap</a> -->
-                             <span>Start Bootstrap</span>
-                            on August 24, 2023
+                            <% if(locals.postAuthorName) { %>
+                                <%= postAuthorName %>
+                            <% } else { %>
+                            <span>Start Bootstrap</span>
+                            <% } %>
+                            on <% if(locals.postDate) { %>
+                                <%= postDate %>
+                            <% } else { %>
+                            <!-- August 24, 2023 -->
+                            unknown date
+                            <% } %>
+
                         </span>
                     <% } else { %>
                         <span class="subheading"><%= pageHeaderSub %></span>

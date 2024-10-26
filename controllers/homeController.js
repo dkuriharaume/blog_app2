@@ -1,19 +1,37 @@
 const BlogPost = require('../models/BlogPost');
+const User = require('../models/User');
 
 module.exports = async (req, res) =>{
 
     //don't forget to populate with userId
+    // but I'm not so sure that is required...it looks fine without it
     const blogposts = await BlogPost.find({});
-    // console.log(`${blogposts.length} documents are found`);
-    // let user;
-    // if(req.session.user) user = req.session.user;
+    let authorNames = [];
+    for(var i = 0; i < blogposts.length; i ++){
+        let authorName; 
+        try {
+
+         const author = await User.findById(blogposts[i].userId);
+         if(author) authorName = author.name;
+         else authorName = 'unknown author';
+
+        }
+        catch (e){
+            console.log(e);
+
+        }
+        authorNames.push(authorName);
+    }
+
     const user = req.session.user;
+
     res.render('index', {
         title: 'Home',
         pageHeaderH1: 'Blog Test 2',
         pageHeaderSub: 'Relearning until I\'m good',
         bgImage: 'home-bg.jpg',
         blogposts: blogposts,
+        authorNames: authorNames,
         user: user,
         info: req.flash('info')
     });

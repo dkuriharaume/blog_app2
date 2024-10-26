@@ -30,11 +30,14 @@ module.exports = async (req, res) => {
 
     fs.unlink(origPath, error=>{console.log(error)});
 
+
     const newPost = await BlogPost.create({
         title: req.body.title,
         body: req.body.body,
-        imagePath: imageId + '.webp'
+        imagePath: imageId + '.webp',
+        userId: req.session.user ? req.session.user._id : null
     });
+
     console.log(newPost);
     req.flash('info', `New Post ${req.body.title} is created.`);
     res.redirect('/');
