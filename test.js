@@ -3,8 +3,10 @@ const User = require('./models/User');
 // const BlogPost = require('./models/BlogPost');
 // const path = require('path');
 // const webp = require('webp-converter');
-const fs = require('fs');
-const md = require('marked');
+// const fs = require('fs');
+// const md = require('marked');
+
+const convertMdToHtml = require('./convertMdToHtml');
 
 // webp.grant_permission();
 
@@ -14,7 +16,7 @@ async function main(){
 
     // #region Database
 
-    // await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
+    await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
 
     // BlogPost.create({
     //     title: "Test Post 2",
@@ -52,30 +54,70 @@ async function main(){
 
     // #endregion
 
-    // #region markedown
+    // #region markdown
     
-    const input = './postData/md/test.md';
-    const output = './postData/html/test.html';
+    // const input = './postData/md/test.md';
+    // const output = './postData/html/test.html';
 
-    const dir = 'assets/img/';
-    const re = /(?<=src=(['"]))(.*?)(?=\1)/g;
+    // const dir = 'assets/img/';
+    // const re = /(?<=src=(['"]))(.*?)(?=\1)/g;
 
-    fs.readFile(input,'utf-8',(err, data)=>{
-        if(err) console.log(err);
+    // fs.readFile(input,'utf-8',(err, data)=>{
+    //     if(err) console.log(err);
 
-        let html = md.parse(data);
+    //     let html = md.parse(data);
 
-        const result = html.replace(re, dir + "$2");
-        // console.log(result);
+    //     const result = html.replace(re, dir + "$2");
 
+    //     const titleRe = /(?<=^<!--\s?title:\s+)(.*?)(?=\s?-->)/;
+    //     const title = titleRe.exec(result)[1];
+    //     console.log(title + ' is created');
 
-        fs.writeFile(output,result,(error)=>{
-            console.log(error);
+    //     fs.writeFile(output,result,(error)=>{
+    //         console.log(error);
+    //     });
+    // });
+
+    // fs.readFile(output, 'utf-8', (error, data)=>{
+
+    //     if(error) console.log(error);
+        
+    //     console.log(data);
+
+    // });
+
+    // const result = await convertMdToHtml('test');
+
+    // console.log(result);
+
+    // #endregion
+
+    // #region BlogPostMD
+
+    const BlogPostMD = require('./models/BlogPostMD');
+
+    const user = await User.find({name: 'dkurihara'});
+    // console.log(user[0].name);
+
+    const post = await convertMdToHtml('test');
+
+    // console.log(post.title, post.body)
+    try{
+        // const newPost = user._id;
+        const newPost = await BlogPostMD.create({
+            title: post.title,
+            body: post.body,
+            authorId: user[0]._id,
+            postDate: new Date(),
+            imagePath:'webp/DSC02832.webp'
         });
-    });
+        console.log(newPost);
 
-
+    }catch (e){
+        console.error(e);
+    }
 
 
     // #endregion
+
 }

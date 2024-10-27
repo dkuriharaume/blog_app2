@@ -1,3 +1,4 @@
+<!-- title: Another post of markdown -->
 # This is a sample post
 
 ## Does this work ?
@@ -19,10 +20,16 @@ Everything else hinders my productivity.
 
 This is image test.  
 
-![image](DSC02789.webp)
+![image](webp/DSC02789.webp)
 
 ### another image test
 
 And here goes another image.  
 
 ![anotherImage](home-bg.jpg)
+
+### and another image
+
+is here!  
+
+![yetAnotherImage](about-bg.jpg)

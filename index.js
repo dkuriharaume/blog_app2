@@ -31,6 +31,7 @@ const loginController = require('./controllers/loginController');
 const authenticateUserController = require('./controllers/authenticateUserController');
 const logoutController = require('./controllers/logoutController');
 const notfoundController = require('./controllers/pageNotFoundController');
+const testPostController = require('./controllers/testPostController');
 
 const isAuthenticatedMW = require('./middlewares/isAuthenticatedMW');
 const isNotAuthMW = require('./middlewares/isNotAuthMW');
@@ -49,6 +50,8 @@ app.get('/post/new', isAuthenticatedMW ,newPostController);
 app.get('/user/new', newUserController);
 app.get('/user/login', isNotAuthMW, loginController);
 app.get('/user/logout', isAuthenticatedMW, logoutController);
+
+app.get('/post/test', testPostController);
 
 main().catch(e =>{
     console.log(e);
