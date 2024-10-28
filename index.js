@@ -19,13 +19,17 @@ app.use(flash());
 
 // const path = require('path');
 
-const homeController = require('./controllers/homeController');
+// const homeController = require('./controllers/homeController');
+const homeMDController = require('./controllers/homeMDController');
 const aboutController = require('./controllers/aboutController');
 const contactController = require('./controllers/contactController');
-const postController = require('./controllers/postController');
-const createPostController = require('./controllers/createPostController');
-const newPostController = require('./controllers/newPostController');
+// const postController = require('./controllers/postController');
+const postMDController = require('./controllers/postMDController');
+// const createPostController = require('./controllers/createPostController');
+const createPostMDController = require('./controllers/createPostMDController');
+// const newPostController = require('./controllers/newPostController');
 const newUserController = require('./controllers/newUserController');
+const newPostMDController = require('./controllers/newPostMDController');
 // const createUserController = require('./controllers/createUserController');
 const loginController = require('./controllers/loginController');
 const authenticateUserController = require('./controllers/authenticateUserController');
@@ -45,8 +49,9 @@ app.listen(port);
 
 app.get('/about', aboutController);
 app.get('/contact', contactController);
-app.get('/post', homeController);
-app.get('/post/new', isAuthenticatedMW ,newPostController);
+app.get('/post', homeMDController);
+app.get('/post/new', isAuthenticatedMW ,newPostMDController);
+// app.get('/post/new/md', isAuthenticatedMW, newPostMDController);
 app.get('/user/new', newUserController);
 app.get('/user/login', isNotAuthMW, loginController);
 app.get('/user/logout', isAuthenticatedMW, logoutController);
@@ -61,9 +66,12 @@ async function main(){
     // connect to mongoDB here
     await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
 
-    app.get('/', homeController);
-    app.post('/post/store',isAuthenticatedMW, createPostController);
-    app.get('/post/:id', postController);
+    // app.get('/', homeController);
+    app.get('/', homeMDController);
+    app.post('/post/store',isAuthenticatedMW, createPostMDController);
+    // app.post('/post/store/md', isAuthenticatedMW, createPostMDController);
+    // app.get('/post/:id', postController);
+    app.get('/post/:id', postMDController);
     // app.post('/user/store', createUserController);
     app.post('/user/store', createUserMW, authenticateUserController);
     app.post('/auth/user', isNotAuthMW, authenticateUserController);
