@@ -1,17 +1,20 @@
-const BlogPost = require('../models/BlogPost');
+// const BlogPost = require('../models/BlogPost');
+const BlogPostMD = require('../models/BlogPostMD');
 const User = require('../models/User');
 
 module.exports = async (req, res) =>{
 
     //don't forget to populate with userId
     // but I'm not so sure that is required...it looks fine without it
-    const blogposts = await BlogPost.find({});
+
+    const blogposts = await BlogPostMD.find({});
     let authorNames = [];
     for(var i = 0; i < blogposts.length; i ++){
         let authorName; 
+
         try {
 
-         const author = await User.findById(blogposts[i].userId);
+         const author = await User.findById(blogposts[i].authorId);
          if(author) authorName = author.name;
          else authorName = 'unknown author';
 

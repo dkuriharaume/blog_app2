@@ -1,9 +1,8 @@
 module.exports = (req, res) => {
-    // console.log(req.flash('data'));
-    res.render('createPost', {
+    res.render('createPostMD', {
         title: 'Create New Post',
         pageHeaderH1: 'Create New Post',
-        pageHeaderSub: 'Fill in the form to create an awesome new blogpost !',
+        pageHeaderSub: 'Upload a Markdown file to create a new post',
         bgImage: 'contact-bg.jpg',
         user: req.session.user,
         warning: req.flash('warning'),
