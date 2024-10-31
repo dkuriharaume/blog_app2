@@ -18,11 +18,15 @@ async function convertMdToHtml(filename){
 
         const data = await fs.readFile(input, {encoding: 'utf8'});
         
-        let html = md.parse(data);
+        let html = md.parse(data,{breaks:true});
        
         const result = html.replace(re, imageDir + "$2");
         const titleRe = /(?<=^<!--\s?title:\s+)(.*?)(?=\s?-->)/;
+        const titles = titleRe.exec(result);
+        if(!titles||titles.length < 1) title = 'No Title';
+        else 
         title = titleRe.exec(result)[1];
+
         console.log(title + ' is created');
         body = result;
 
