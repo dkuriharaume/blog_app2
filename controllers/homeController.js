@@ -27,7 +27,7 @@ module.exports = async (req, res) =>{
 
     const user = req.session.user;
 
-    res.render('index2', {
+    res.render('index', {
         title: 'Home',
         pageHeaderH1: 'Blog Test 2',
         pageHeaderSub: 'Relearning until I\'m good',
