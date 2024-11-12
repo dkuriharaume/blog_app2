@@ -9,42 +9,25 @@ const User = require('../models/User');
 
 module.exports = async (req, res)=>{
 
+    // get files
     const keys = Object.keys(req.files); 
 
     for(var i = 0; i < keys.length; i ++){
 
         const key = keys[i];
         const file = req.files[key];
-        // const postId = generateId(12);
-        /**
-         * Redifine BlogPost
-         * to contain 
-         * Title
-         * postPath: an object with keys 'md' and 'html'
-         * postImage: an array of objects with keys 'name', 'id', 'path'
-         * 
-         * save the md file in a path
-         * skip the html conversion for now
-         * create BlotPost document here and get the id for later retrieval
-         * save the BlogPost id on session
-         * 
-         * mkdir under public/postData with BlogPost._id as dir name
-         */
-
-        //create BlogPost2 document with temp data and get the id
 
         try {
             await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
 
-            // fix user later
-            // const tmpUser = await User.find({name: 'kakuma'});
             const document = await BlogPost2.create({
                 title: 'tmp',
                 postData: {
                     filename: parseFileName(file.name).name,
                     imageData: []
                 },
-                authorId: new mongoose.Types.ObjectId(),
+                // authorId: new mongoose.Types.ObjectId(),
+                authorId: req.session.user._id
             });
 
             //create directory with the id as its name
@@ -76,6 +59,4 @@ module.exports = async (req, res)=>{
 
     }
     res.redirect('/');
-    // console.log(req.files);
-    // console.log('Hi');
 }

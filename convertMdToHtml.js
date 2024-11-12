@@ -1,65 +1,18 @@
-// const fs = require('fs');
-const fs = require('fs/promises');
-const md = require('marked');
-const path = require('path');
+const marked = require('marked');
 
-async function convertMdToHtml(filename){
+module.exports = (source)=>{
 
-    const input = path.resolve('./postData/md',filename + '.md');
-    const output = path.resolve('./postData/html',filename + '.html');
+    const renderer = {
+        image({href,text}){
 
-    const imageDir = '/assets/img/';
-    const re = /(?<=src=(['"]))(.*?)(?=\1)/g;
+            return `<img src='${href}' id='${text.replace(/\s/g,"_")}' alt='${text}' class='image-fluid' />`;
 
-    let title;
-    let body;
+        }
+    };
 
-    try{
+    marked.use({renderer});
+    const result =  marked.parse(source, {breaks:true})
+    console.log(typeof result)
+    return result;
 
-        const data = await fs.readFile(input, {encoding: 'utf8'});
-        
-        let html = md.parse(data,{breaks:true});
-       
-        const result = html.replace(re, imageDir + "$2");
-        const titleRe = /(?<=^<!--\s?title:\s+)(.*?)(?=\s?-->)/;
-        const titles = titleRe.exec(result);
-        if(!titles||titles.length < 1) title = 'No Title';
-        else 
-        title = titleRe.exec(result)[1];
-
-        console.log(title + ' is created');
-        body = result;
-
-        await fs.writeFile(output, result);
-
-    }
-    catch(e){
-        console.log(e);
-    }
-    finally {
-        return {
-            title: title,
-            body: body
-        };
-    }
-
-
-    // fs.readFile(input,'utf-8',(err, data)=>{
-    //     if(err) console.log(err);
-
-    //     let html = md.parse(data);
-
-    //     const result = html.replace(re, imageDir + "$2");
-
-    //     const titleRe = /(?<=^<!--\s?title:\s+)(.*?)(?=\s?-->)/;
-    //     const title = titleRe.exec(result)[1];
-    //     console.log(title + ' is created');
-
-    //     fs.writeFile(output,result,(error)=>{
-    //         console.log(error);
-    //     });
-    // });
-    // return "Hi"
 }
-
-module.exports = convertMdToHtml;
