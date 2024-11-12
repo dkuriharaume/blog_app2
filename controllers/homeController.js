@@ -1,5 +1,4 @@
-// const BlogPost = require('../models/BlogPost');
-const BlogPostMD2 = require('../models/BlogPost2');
+const BlogPost = require('../models/BlogPost');
 const User = require('../models/User');
 
 module.exports = async (req, res) =>{
@@ -7,7 +6,7 @@ module.exports = async (req, res) =>{
     //don't forget to populate with userId
     // but I'm not so sure that is required...it looks fine without it
 
-    const blogposts = await BlogPostMD2.find({});
+    const blogposts = await BlogPost.find({});
     let authorNames = [];
     for(var i = 0; i < blogposts.length; i ++){
         let authorName; 

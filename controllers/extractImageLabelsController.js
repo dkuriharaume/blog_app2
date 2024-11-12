@@ -2,10 +2,10 @@ const {readFile, mkdir} = require('fs/promises');
 const {resolve} = require('path');
 const getPostTitle = require('../getPostTitle');
 const getImageData = require('../getImageData');
-const BlogPost2 = require('../models/BlogPost2');
+const BlogPost = require('../models/BlogPost');
 const parseFileName = require('../parseFileName');
 const mongoose = require('mongoose');
-const User = require('../models/User');
+// const User = require('../models/User');
 
 module.exports = async (req, res)=>{
 
@@ -20,7 +20,7 @@ module.exports = async (req, res)=>{
         try {
             await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
 
-            const document = await BlogPost2.create({
+            const document = await BlogPost.create({
                 title: 'tmp',
                 postData: {
                     filename: parseFileName(file.name).name,

@@ -1,14 +1,9 @@
-const BlogPost2 = require('../models/BlogPost2');
+const BlogPost = require('../models/BlogPost');
 const User = require('../models/User');
 const {resolve} = require('path')
 const {readFile} = require('fs/promises')
 
 module.exports = async (req, res)=>{ 
-
-    /** Important !
-     * Don't forget to read from the correct path.
-     * Currently image is read in a weird way so be mindful
-     */
 
     const postPath = resolve(__dirname, '../public/postData', req.params.id)
     const bgImagePath = resolve('/postData', req.params.id,'img', 'post_bg.webp')
@@ -17,7 +12,7 @@ module.exports = async (req, res)=>{
     let postAuthor;
 
     try{
-        blogpost = await BlogPost2.findById(req.params.id)
+        blogpost = await BlogPost.findById(req.params.id)
         postAuthor = await User.findById(blogpost.authorId)
         req.session.user = postAuthor
     }
