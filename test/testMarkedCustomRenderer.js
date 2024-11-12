@@ -15,7 +15,7 @@ module.exports = async ()=>{
      * leaving the values of source attribute of them with placeholders
      * 
      * no, that's not what I want.
-     * First, parse MD and extract all the custom comment where images are to be inserted.
+     * First, parse the uploaded MD file and extract all the custom comment where images are to be inserted.
      * Then, show forms that let images to be uploaded to the server
      * And, replace image comments with appropriate image elements using custom renderer, as demonstrated above.
      */

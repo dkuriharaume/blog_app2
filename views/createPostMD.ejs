@@ -25,6 +25,14 @@
                                 </div>
                                 <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Create Post</button>
                             </form>
+                            <h3>Parse MD file</h3>
+                            <form class="mt-3" action="/post/test" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="mdFile2" class="form-label">Markdown File</label>
+                                    <input class="form-control" type="file" id="mdFile2" name="mdFile2" accept=".md">
+                                </div>
+                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Parse</button>
+                            </form>
                         </div>
                     </div>
                 </div>

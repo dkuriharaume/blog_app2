@@ -1,3 +1,4 @@
+<!-- Title : Testing Markdown to HTML -->
 # Line break test
 
 So, basically what I want to do now is
@@ -10,10 +11,14 @@ I don't think it's a problem to insert two spaces at the end of every headings ?
 I don't think it hurts to do that.
 But best to be careful and not to append spaces at the end of headings.
 
+<!-- image: some cat -->
+
 ## How about bullets?
 
 Likewise I don't think it breaks to add extra two spaces at the end of each bulleted items.
 But yeah it'd be nice to ommit that behaviour if I can.
+
+<!-- image: a child eating chocolate -->
 
 - This
 - Is
@@ -35,5 +40,3 @@ Try not to add spaces there.
 
 I'm not entirely sure what happens if I put spaces at the end of image insertion codes.
 Best not to place.
-
-![someImage](home-bg.jpg)

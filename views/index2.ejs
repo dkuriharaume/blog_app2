@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layouts/head') %>
+    <body>
+        <%- include('layouts/navbar') %>
+        <%- include('layouts/pageHeader') %>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <% if (locals.info) { %>
+                        <ul class="list-group">
+                            <% for(var i = 0; i < info.length; i ++){ %>
+                                <li class="list-group-item list-group-item-info"><%= info[i] %></li>
+                            <% } %>
+                        </ul>
+                    <% } %>
+                    <!-- Post preview-->
+                    <% if(blogposts != null) { %>
+                        <% for (var i = 0; i < blogposts.length; i ++){ %>
+                            <div class="post-preview">
+                                <a href="/post/<%= blogposts[i]._id %>">
+                                    <h2 class="post-title"><%= blogposts[i].title %></h2>
+                                </a>
+                                <p class="post-meta">
+                                    Posted by
+                                    <% if(locals.authorNames) { %>
+                                        <a href="#!"><%= authorNames[i] %></a>
+                                    <% } else { %>
+                                    <a href="#!">Start Bootstrap</a>
+                                    <% } %>
+                                    <!-- on September 24, 2023 -->
+                                    on <%= blogposts[i].postDate.toDateString() %>
+                                </p>
+                            </div>
+                            <!-- Divider-->
+                            <hr class="my-4" />
+                        <% } %>
+                    <% } %>
+                    <!-- Pager-->
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                </div>
+            </div>
+        </div>
+        <%- include('layouts/footer') %>
+        <%- include('layouts/scripts') %>
+    </body>
+</html>

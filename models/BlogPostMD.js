@@ -11,7 +11,7 @@ const BlogPostMDSchema = new mongoose.Schema({
     },
     authorId: {
         type: mongoose.ObjectId,
-        required: true
+        // required: true
     },
     postDate: {
         type: Date,

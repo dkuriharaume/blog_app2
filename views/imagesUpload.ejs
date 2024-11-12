@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layouts/head') %>
+    <%- include('layouts/navbar') %>
+    <%- include('layouts/pageHeader') %>
+    <!-- Main Content-->
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="my-5">
+                        <% if(locals.warning) { %>
+                            <ul class="list-group">
+                                <% for(var i = 0; i < warning.length; i ++){ %>
+                                    <li class="list-group-item list-group-item-warning mb-1"><%= warning[i] %></li>
+                                <% } %>
+                            </ul>
+                        <% } %>
+                        <form id="contactForm" action="/post/store/test" method="POST" enctype="multipart/form-data" >
+                            <div class="mb-3">
+                                <label for="post_bg" class="form-label">Post background</label>
+                                <input class="form-control" type="file" id="post_bg" name="post_bg" accept=".jpg,.png,.JPEG,.PNG,.webp">
+                            </div>
+                            <% if(locals.imageData) { %>
+                                <% for(var i = 0; i < imageData.length; i++) { %>
+                                    <div class="mb-3">
+                                        <label for="<%= imageData[i].id %>" class="form-label"><%= imageData[i].label %></label>
+                                        <input class="form-control" type="file" id="<%= imageData[i].id %>" name="<%= imageData[i].id %>" accept=".jpg,.png,.JPEG,.PNG,.webp" >
+                                    </div>
+                                <% } %>
+                            <% } %>
+                            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Upload Images</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include('layouts/footer') %>
+    <%- include('layouts/scripts') %>
+</html>
