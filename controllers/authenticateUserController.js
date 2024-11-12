@@ -46,7 +46,6 @@ module.exports = async (req, res) =>{
                     });
                 });
             }else{
-                // console.log('password is not correct.');
                 req.flash('error', 'password is not correct.');
                 return res.redirect('/user/login');
             }

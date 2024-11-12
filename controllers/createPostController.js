@@ -2,8 +2,8 @@ const {resolve} = require('path');
 const webp = require('webp-converter');
 webp.grant_permission();
 const {readFile, mkdir, writeFile} = require('fs/promises');
-const processMdImageTag = require('../processMdImageTag');
-const convertMdToHtml = require('../convertMdToHtml');
+const processMdImageTag = require('../utility/processMdImageTag');
+const convertMdToHtml = require('../utility/convertMdToHtml');
 
 module.exports = async (req, res) =>{
 

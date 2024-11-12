@@ -1,11 +1,10 @@
 const {readFile, mkdir} = require('fs/promises');
 const {resolve} = require('path');
-const getPostTitle = require('../getPostTitle');
-const getImageData = require('../getImageData');
+const getPostTitle = require('../utility/getPostTitle');
+const getImageData = require('../utility/getImageData');
 const BlogPost = require('../models/BlogPost');
-const parseFileName = require('../parseFileName');
+const parseFileName = require('../utility/parseFileName');
 const mongoose = require('mongoose');
-// const User = require('../models/User');
 
 module.exports = async (req, res)=>{
 
@@ -26,7 +25,6 @@ module.exports = async (req, res)=>{
                     filename: parseFileName(file.name).name,
                     imageData: []
                 },
-                // authorId: new mongoose.Types.ObjectId(),
                 authorId: req.session.user._id
             });
 

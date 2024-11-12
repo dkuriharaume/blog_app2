@@ -18,11 +18,9 @@ module.exports = async (req, res, next) => {
         })
         .then((user)=>{
             req.flash('info',`New user "${user.name}" is created!`);
-            // res.redirect('/');
             return next();
         })
         .catch(error=>{
-            // console.log(error)
             if(error.code && error.code == 11000) req.flash('error', 'An user with the username already exits.');
             else if(error.errors){
                 if(!req.body.username) req.flash('error', 'username is required');
