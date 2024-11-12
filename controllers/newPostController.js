@@ -1,5 +1,5 @@
 module.exports = (req, res) => {
-    res.render('createPostMD', {
+    res.render('createPost', {
         title: 'Create New Post',
         pageHeaderH1: 'Create New Post',
         pageHeaderSub: 'Upload a Markdown file to create a new post',

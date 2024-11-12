@@ -32,12 +32,8 @@ const loginController = require('./controllers/loginController');
 const authenticateUserController = require('./controllers/authenticateUserController');
 const logoutController = require('./controllers/logoutController');
 const notfoundController = require('./controllers/pageNotFoundController');
-// const selectImagesController = require('./controllers/selectImagesController');
 const extractImageLabelsController = require('./controllers/extractImageLabelsController');
 const uploadImagesController = require('./controllers/uploadImagesController');
-const createPostTestController = require('./controllers/createPostTestController');
-
-// const parseImageCommentController = require('./controllers/')
 
 const isAuthenticatedMW = require('./middlewares/isAuthenticatedMW');
 const isNotAuthMW = require('./middlewares/isNotAuthMW');
@@ -56,22 +52,18 @@ app.get('/user/new', newUserController);
 app.get('/user/login', isNotAuthMW, loginController);
 app.get('/user/logout', isAuthenticatedMW, logoutController);
 
-app.get('/test', newPostController);
 app.get('/post/uploadImages', uploadImagesController);
-// app.get('post/test', testPostController);
 
 main().catch(e =>{
     console.log(e);
 });
 
 async function main(){
-    // connect to mongoDB here
     await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
 
     app.get('/', homeController);
-    app.post('/post/store/test',/*isAuthenticatedMW, */createPostTestController);
     app.post('/post/store',isAuthenticatedMW, createPostController);
-    app.post('/post/test', extractImageLabelsController);
+    app.post('/post/select_images', extractImageLabelsController);
     app.get('/post/:id', postController);
     app.post('/user/store', createUserMW, authenticateUserController);
     app.post('/auth/user', isNotAuthMW, authenticateUserController);
