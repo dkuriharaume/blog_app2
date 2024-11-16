@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
+const mongoose = require('mongoose');
+const mongodb = require('mongodb')
+const MongoStore = require('connect-mongo')
+
 const flash = require('connect-flash');
 
 app.set('view engine', 'ejs');
@@ -13,12 +16,17 @@ app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: '/tmp/'
 }));
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
-app.use(flash());
+// const connectionString = "mongodb+srv://dkurihara3352:blDSuhT5AJnlv28D@dkuriharatest.b1ghg.mongodb.net/?retryWrites=true&w=majority&appName=dkuriharaTest"
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: false,
+//     store: MongoStore.create({
+//         mongoUrl: connectionString,
+//         dbName:"blogTest2"
+//     })
+// }));
+// app.use(flash());
 
 const homeController = require('./controllers/homeController');
 
@@ -44,26 +52,43 @@ if(port ==null||port=="") port = 4000;
 
 app.listen(port);
 
-app.get('/about', aboutController);
-app.get('/contact', contactController);
-app.get('/post', homeController);
-app.get('/post/new', isAuthenticatedMW ,newPostController);
-app.get('/user/new', newUserController);
-app.get('/user/login', isNotAuthMW, loginController);
-app.get('/user/logout', isAuthenticatedMW, logoutController);
 
-app.get('/post/uploadImages', uploadImagesController);
 
 main().catch(e =>{
     console.log(e);
 });
 
 async function main(){
+
     const connectionString = "mongodb+srv://dkurihara3352:blDSuhT5AJnlv28D@dkuriharatest.b1ghg.mongodb.net/?retryWrites=true&w=majority&appName=dkuriharaTest"
-    // await mongoose.connect('mongodb://127.0.0.1:27017/blogTest2');
-    await mongoose.connect(connectionString, {dbName:"blogTest2"})
+
+    try{
+
+        await mongoose.connect(connectionString, {dbName:"blogTest2"})
+        const connection = mongoose.connection;
+        const client = connection.getClient()
+
+        app.use(session({
+            secret: 'keyboard cat',
+            resave: false,
+            saveUninitialized: false,
+            store: MongoStore.create({client})
+            })
+        )
+    }
+    catch(e){console.error(e)}
+
+    app.use(flash());
 
     app.get('/', homeController);
+    app.get('/about', aboutController);
+    app.get('/contact', contactController);
+    app.get('/post', homeController);
+    app.get('/user/login', isNotAuthMW, loginController);
+    app.get('/user/logout', isAuthenticatedMW, logoutController);
+    app.get('/user/new', newUserController);
+    app.get('/post/new', isAuthenticatedMW ,newPostController);
+    app.get('/post/uploadImages', uploadImagesController);
     app.post('/post/store',isAuthenticatedMW, createPostController);
     app.post('/post/select_images', extractImageLabelsController);
     app.get('/post/:id', postController);

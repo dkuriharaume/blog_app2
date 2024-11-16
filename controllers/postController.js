@@ -13,8 +13,8 @@ module.exports = async (req, res)=>{
 
     try{
         blogpost = await BlogPost.findById(req.params.id)
-        postAuthor = await User.findById(blogpost.authorId)
-        req.session.user = postAuthor
+       postAuthor = await User.findById(blogpost.authorId)
+        // req.session.user = postAuthor
     }
     catch(e) {
         console.log(e);
