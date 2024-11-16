@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_OPTIONS=--trace-deprecation nodemon index.js",
+    "start": "NODE_ENV=production NODE_OPTIONS=--trace-deprecation nodemon index.js",
     "test": "node test/test.js"
   },
   "author": "Daisuke Kurihara",
   "license": "ISC",
   "engines": {
     "node": "23.2.0"
-
   },
   "description": "",
   "devDependencies": {
